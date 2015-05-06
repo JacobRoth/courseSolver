@@ -20,9 +20,10 @@ class Section():
         return any( map( lambda interval: interval.isActive(minuteOfWeek), self.intervalsList)) 
 
 class Course():
-    def __init__(self,sections,name):
-        self.sections = sections
+    def __init__(self,sections,name,code):
+        self.sections = section
         self.name = name
+        self.code = code
     def isRepresented(self,schedule):
         for section in self.sections:
             if section in schedule:
