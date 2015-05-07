@@ -2,7 +2,7 @@ import functools,itertools
 from datetimeinterval import * #code i wrote to handle course time strings. 
 from listops import *
 
-
+MINUTES_IN_WEEK = 7*24*60
 class Section():
     def __init__(self,name,code,intervalsList):
         self.name = name 
@@ -21,7 +21,7 @@ class Section():
 
 class Course():
     def __init__(self,sections,name,code):
-        self.sections = section
+        self.sections = sections
         self.name = name
         self.code = code
     def isRepresented(self,schedule):

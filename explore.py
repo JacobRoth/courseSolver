@@ -36,4 +36,4 @@ f.close()
 sections = everyOther(findCourseTable(courseTree))
 sectionObjs = list(map(Section.fromElementObject,sections))
 coursesAsLists = segment(sectionObjs,lambda obj:obj.code.split("-")[0]) # we want to take everything before the course code 
-courses = [ Course(segment,segment[0].name,segment[0].code.split('-')[0]) for segment in coursesAsLists ] # we take segment[0] as the first section and use its name and code to construct the Course.
+courses = [ Course(segment,segment[0].name,segment[0].code.split("-")[0]) for segment in coursesAsLists ] # we take segment[0] as the first section and use its name and code to construct the Course.
