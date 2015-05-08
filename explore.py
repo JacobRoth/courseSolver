@@ -1,8 +1,6 @@
 import lxml.html
 from course import *
 
-MINUTES_IN_WEEK = 10080 
-
 def findCourseTable(tree):
     '''searches through the course tree to find the table that holds
     all the courses'''
@@ -33,7 +31,9 @@ f = open("everyCourse_fall15.htm")
 courseTree = lxml.html.fromstring(f.read())
 f.close()
 
-sections = everyOther(findCourseTable(courseTree))
-sectionObjs = list(map(Section.fromElementObject,sections))
-coursesAsLists = segment(sectionObjs,lambda obj:obj.code.split("-")[0]) # we want to take everything before the course code 
+sectionsAsElements = everyOther(findCourseTable(courseTree))
+sections = list(map(Section.fromElementObject,sectionsAsElements))
+
+
+coursesAsLists = segment(sections,lambda obj:obj.code.split("-")[0]) # we want to take everything before the course code 
 courses = [ Course(segment,segment[0].name,segment[0].code.split("-")[0]) for segment in coursesAsLists ] # we take segment[0] as the first section and use its name and code to construct the Course.
