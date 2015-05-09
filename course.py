@@ -19,7 +19,7 @@ class Section():
     def isActive(self,minuteOfWeek):
         return any( map( lambda interval: interval.isActive(minuteOfWeek), self.intervalsList)) 
 
-class Course():
+'''class Course():
     def __init__(self,sections,name,code):
         self.sections = sections
         self.name = name
@@ -28,17 +28,17 @@ class Course():
         for section in self.sections:
             if section in schedule:
                 return True
-        return False
+        return False''' # I've decided this Object is unnecessary complexity
     
 def activityFunction(schedule):
     '''takes a schedule, returns a function on one variable (t) that is the square-wave representation of that schedule. If the activity function ever
     goes over 1, it is a conflicting schedule'''
     return (lambda t: sum([section.isActive(t) for section in schedule]))
 
-def schedules(listOfCourses):
+def schedules(listsOfSections):
     '''if you have a list of courses, returns a list of schedules (schedule is a list of sections) that contain all those courses'''
     
-    allPossibleSchedules = list(itertools.product(*[course.sections for course in listOfCourses]))
+    allPossibleSchedules = list(itertools.product(*listsOfSections))
     scheduleIsNonconflicting = lambda schedule: max(map(activityFunction(schedule),range(0,MINUTES_IN_WEEK))) <= 1
     
     nonConflictingSchedules = list(filter(scheduleIsNonconflicting  ,allPossibleSchedules))
@@ -48,7 +48,8 @@ def schedules(listOfCourses):
 
     # sanity testing part
     for schedule in nonConflictingSchedules:
-        for course in listOfCourses:
-            assert(course.isRepresented(schedule))
+        for listOfSections in listsOfSections:
+            assert(any(map(lambda section: section in listOfSections ,schedule)))
+
     return nonConflictingSchedules
 
