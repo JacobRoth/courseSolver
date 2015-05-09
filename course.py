@@ -1,13 +1,14 @@
 import functools,itertools
 from datetimeinterval import * #code i wrote to handle course time strings. 
-from listops import *
+#from listops import *
 
 MINUTES_IN_WEEK = 7*24*60
 class Section():
-    def __init__(self,name,code,intervalsList):
+    def __init__(self,name,code,intervalsList,timeStrings=[]): #
         self.name = name 
         self.intervalsList = intervalsList
         self.code = code
+        self.timeStrings=timeStrings
 
     @classmethod # some weird python voodoo i found on stackoverflow. It lets me make an alternate constructor.
     def fromElementObject(cls,elementObject): # i think cls is like self but it represents this class not this instance
@@ -15,7 +16,8 @@ class Section():
 
         timeStrings = [elementObject[6][0][0][iii].text for iii in range(len(elementObject[6][0][0]))]
         intervalsList = sum(map(decomposeCourseTimeString,timeStrings),[]) # each decompose returns a list of intervals. We're going to get multiple of these lists and we want to concatenate them all togetherer. sum( listOfLists, []) concatenates the way we want.
-        return cls(elementObject[2].text,elementObject[1][0].text,intervalsList)
+        return cls(elementObject[2].text,elementObject[1][0].text,intervalsList,timeStrings)
+
     def isActive(self,minuteOfWeek):
         return any( map( lambda interval: interval.isActive(minuteOfWeek), self.intervalsList)) 
 

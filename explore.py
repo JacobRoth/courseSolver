@@ -1,6 +1,10 @@
 import lxml.html
 from course import *
 
+# these imports for debugging help only.
+import output,random
+
+
 def findCourseTable(tree):
     '''searches through the course tree to find the table that holds
     all the courses'''
