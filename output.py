@@ -19,4 +19,3 @@ def printSchedule(schedule):
                 for timeString in section.timeStrings[1:]:
                     print(template.format("", "", timeString)) # print the zeroth time string 
         print("") # pad space for next section
-
