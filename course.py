@@ -21,6 +21,9 @@ class Section():
     def isActive(self,minuteOfWeek):
         return any( map( lambda interval: interval.isActive(minuteOfWeek), self.intervalsList)) 
 
+    def __repr__(self):
+        return self.code+" "+self.name
+
 '''class Course():
     def __init__(self,sections,name,code):
         self.sections = sections

@@ -23,7 +23,8 @@ master = Tk()
 searchunit = SearchUnit(master)
 
 def fillLbWithSections(listbox, searchtext):
-    sectionCodes = [ sec.code for sec in sections if ( (str.lower(searchtext.get()) in str.lower(sec.code)) or (str.lower(searchtext.get()) in str.lower(sec.name)) ) ]
+    sectionCodes = [ sec for sec in sections if ( (str.lower(searchtext.get()) in str.lower(sec.code)) or (str.lower(searchtext.get()) in str.lower(sec.name)) ) ]
+    currentThings = listbox.get(0,END)
     listbox.delete(0,END) # clear out the listbox
     for code in sectionCodes:
         listbox.insert(END,code)
@@ -36,7 +37,11 @@ searchunit.searchbutton.config(command= lambda: fillLbWithSections(searchunit.li
 #addbutton.pack()
 #clearbutton.pack()
 
-
 searchunit.pack()
 
+def updateSearchbox():
+    fillLbWithSections(searchunit.listbox, searchunit.searchtext)
+    master.after(100,updateSearchbox)
+
+master.after(100,updateSearchbox) # starts an infinite loop
 master.mainloop()
