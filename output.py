@@ -19,3 +19,9 @@ def printSchedule(schedule):
                 for timeString in section.timeStrings[1:]:
                     print(template.format("", "", timeString)) # print the zeroth time string 
         print("") # pad space for next section
+
+def treeRender(listsOfCourses):
+    for iii in range(len(listsOfCourses)):
+        print("---Block ",iii)
+        for jjj in range(len(listsOfCourses[iii])):
+            print("   |-{0:3}: ".format(str(jjj)),listsOfCourses[iii][jjj])
