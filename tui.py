@@ -20,8 +20,17 @@ def printSchedule(schedule):
                     print(template.format("", "", timeString)) # print the zeroth time string 
         print("") # pad space for next section
 
-def treeRender(listsOfCourses):
-    for iii in range(len(listsOfCourses)):
+def treeRender(blockStructure):
+    for iii in range(len(blockStructure)):
         print("---Block ",iii)
-        for jjj in range(len(listsOfCourses[iii])):
-            print("   |-{0:3}: ".format(str(jjj)),listsOfCourses[iii][jjj])
+        for jjj in range(len(blockStructure[iii])):
+            print("   |-{1:3}: ".format(str(jjj)),blockStructure[iii][jjj])
+
+def tuiChoice(prompt,optionsList):
+    '''loops until you make a valid choice from optionsList. Must be passing in a list of strings for optionsList'''
+    assert(all(list(map( lambda x: type(x)==str, optionsList)))) # confirm withe the programmer that it's a list of all strings.
+    received = input(prompt) 
+    while ( not ( received in optionsList)):
+        received = input(prompt)
+    return received
+
