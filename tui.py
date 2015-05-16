@@ -30,7 +30,21 @@ def tuiChoice(prompt,optionsList):
     '''loops until you make a valid choice from optionsList. Must be passing in a list of strings for optionsList'''
     assert(all(list(map( lambda x: type(x)==str, optionsList)))) # confirm withe the programmer that it's a list of all strings.
     received = input(prompt) 
-    while ( not ( received in optionsList)):
+    while ( not ( received.strip() in optionsList)):
         received = input(prompt)
-    return received
+    return received.strip() # we use strip to take off any errant spaces.
 
+def main():
+    blockStructure = [] # reminder - a block structure is a list of lists of sections. course.schedules() takes in a block structure and returns the possible class shedules.
+    print("Welcome to the shitty text interface to Jacob's scheduling algorithm! Enter h for help")
+    while (True):
+        cmd = tuiChoice("? ",['h','q','p'])
+        if cmd == 'h':
+            print("All the help text goes here")
+        elif cmd == 'q':
+            exit()
+        elif cmd == 'p':
+            treeRender(blockStructure)
+
+if __name__ == '__main__':
+    main()
